@@ -27,6 +27,8 @@
                 <% if (user.local.email) { %>
                     <p>
                         <strong>id</strong>: <%= user._id %><br>
+                        <strong>First Name</strong>: <%= user.local.firstName %><br>
+                        <strong>Last Name</strong>: <%= user.local.lastName %><br>
                         <strong>email</strong>: <%= user.local.email %><br>
                         <strong>password</strong>: <%= user.local.password %>
                     </p>

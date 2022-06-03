@@ -1,8 +1,12 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>21 Savage Fan Site</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+
+    <title>Coffee Shop</title>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -19,46 +23,141 @@
         </section>
     </section>
 
-    <section class="container text-center plantMain">
+    <section class="container text-center">
 
         <!-- LOCAL INFORMATION -->
         <section class="row">
-            <section class="col-sm-4 plantBoxes">
-                
-            </section>
-            <% for(let i=0; i<myWorkLogs.length; i++) {%>
-                <section class="col-sm-4 " id="<%=myWorkLogs[i]._id%>">
-                    <section id="<%=myWorkLogs[i].starred%>">
-                        <h3>
-                            Date: <%= myWorkLogs[i].date %>
-                        </h3>
-                        <h3>Workout Time:</h3>
-                        <span>
-                            <%= myWorkLogs[i].workoutHours %> hrs
-                        </span>
-                        <span>
-                            <%= myWorkLogs[i].workoutMinutes %> mins
-                        </span>
-                        <!-- <img class="plantpic"  src="img/plant-icon.gif" alt="generic plant image"> -->
-                        <h3>Routine:</h3>
-                        <p>
-                            <%= myWorkLogs[i].workoutRoutine %>
-                        </p>
-                        <h3>Notes/Improvements:</h3>
-                        <p>
-                            <%= myWorkLogs[i].workoutNotes %>
-                        </p>
+            <section class="col-sm-6">
+            <h2>Pending Orders</h2>
+            <% for(let i=0; i<orders.length; i++) {
+                 if (orders[i].complete === false) { %>
 
-                        <span><i class="fa fa-star-o" aria-hidden="true"></i></span>
-                        <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                <section class="col-sm-6 " id="<%=orders[i]._id%>">
+                    <section id="<%=orders[i].complete%>">
 
+                        <table>
+                            <thead>
+                                <tr>
+                                   <th scope="col"><%= orders[i].customerName %></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+
+
+
+
+
+
+                        <ul class="orderList">
+
+
+                            <li>Name: <span id="customerName"><%= orders[i].customerName %></span>
+                               
+                            </li>
+                            <li><span>Size:</span>
+                                <%= orders[i].size %>
+                            </li>
+                            <li><span>Beverage:</span>
+                                <%= orders[i].beverage %>
+                            </li>
+                            <li><span>Temp:</span>
+                                <%= orders[i].temperature %>
+                            </li>
+                            <li><span>Sugar</span>
+                                <%= orders[i].sugar %>
+                            </li>
+                            <li><span>Flavor</span>
+                                <%= orders[i].flavor %>
+                            </li>
+                            <li><span>Milk</span>
+                                <%= orders[i].milkOptions %>
+                            </li>
+
+                            <%if(orders[i].note !== ''){%>
+                                <li><span>Note</span>
+                                <%= orders[i].note%>
+                            </li>
+                            <% } %>
+                        
+                            <span><i id="speak" class="fa fa-check" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+
+
+                        </ul>
                     </section>
 
                 </section>
-                <% } %>
+                <% }} %>
+            </section>
 
 
+                
+                <section class="col-sm-6">
+                    <h2>Order Up</h2>
+                    <span><%orders[orders.length-1].customerName%></span>
 
+                    <h2>Completed Orders</h2>
+                    <% for(let i=0; i<orders.length; i++) {
+                 if (orders[i].complete === true) { %>
+
+                        <section class="col-sm-6" id="<%=orders[i]._id%>">
+
+                            <section id="<%=orders[i].complete%>">
+                                
+                                <ul>
+
+                                    <h3>Order completed by  <%= orders[i].thisUser %></h3>
+
+                                    <li ><span>Name:</span>
+                                        <%= orders[i].customerName %>
+                                    </li>
+                                    <li><span>Size:</span>
+                                        <%= orders[i].size %>
+                                    </li>
+                                    <li><span>Beverage:</span>
+                                        <%= orders[i].beverage %>
+                                    </li>
+                                    <li><span>Temp:</span>
+                                        <%= orders[i].temperature %>
+                                    </li>
+                                    <li><span>Sugar</span>
+                                        <%= orders[i].sugar %>
+                                    </li>
+                                    <li><span>Flavor</span>
+                                        <%= orders[i].flavor %>
+                                    </li>
+                                    <li><span>Milk</span>
+                                        <%= orders[i].milkOptions %>
+                                    </li>
+                                    <li><span>Note</span>
+                                        <%= orders[i].note %>
+                                    </li>
+                                    <span><i class="fa fa-check" aria-hidden="true"></i></span>
+                                    <span><i  class="fa fa-trash-o" aria-hidden="true"></i></span>
+
+
+                                </ul>
+                            </section>
+
+                        </section>
+                        <% }} %>
+
+                    </section>
 
         </section>
 

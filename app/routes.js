@@ -3,7 +3,7 @@ const user = require("./models/user");
 module.exports = function(app, passport, db) {
 
 const {ObjectId} = require('mongodb') //gives access to _id in mongodb
-
+//Collection variable
 const collectionName = 'orders'
 // normal routes ===============================================================
 
@@ -40,10 +40,10 @@ const collectionName = 'orders'
   //       })
   //     })
   // });
-
+  // {name: req.user.local.email}
     // barista SECTION =================================
     app.get('/barista', isLoggedIn, function(req, res) {
-      db.collection(collectionName).find({name: req.user.local.email}).toArray((err, result) => {
+      db.collection(collectionName).find().toArray((err, result) => {
         if (err) return console.log(err)
         console.log('result', result)
 
@@ -53,7 +53,7 @@ const collectionName = 'orders'
 
         res.render('barista.ejs', {
           user : req.user, 
-          myWorkLogs: result
+          orders: result
         })
       })
   });
@@ -66,21 +66,14 @@ const collectionName = 'orders'
 
 // barista Page Routes ===============================================================
 
-    app.post('/addWorkoutLog', (req, res) => {
-      db.collection(collectionName).insertOne({name: req.body.name, date: req.body.date, workoutHours: req.body.workoutHours, workoutMinutes: req.body.workoutMinutes, workoutRoutine: req.body.workoutRoutine, workoutNotes: req.body.workoutNotes, starred: true}, (err, result) => {
-        if (err) return console.log(err)
-        //console.log(result)
-        console.log('saved to database')
-        res.redirect('/barista')
-      })
-    })
 
-    app.put('/addStarred', (req, res) => {
+    app.put('/addChecked', (req, res) => {
         db.collection(collectionName)
         .findOneAndUpdate({ _id: ObjectId(req.body.postObjectID)}, 
         {
           $set: {
-            starred: true
+            complete: true,
+            thisUser: req.user.local.firstName
           }
         },
          {
@@ -92,12 +85,13 @@ const collectionName = 'orders'
         })
       })
 
-      app.put('/removeStarred', (req, res) => {
+      app.put('/removeChecked', (req, res) => {
         db.collection(collectionName)
         .findOneAndUpdate({ _id: ObjectId(req.body.postObjectID)}, 
         {
           $set: {
-            starred: false
+            complete: false,
+
           }
         },
          {
@@ -110,7 +104,7 @@ const collectionName = 'orders'
       })
 
 
-      app.delete('/deleteWorkoutPost', (req, res) => {
+      app.delete('/deleteOrder', (req, res) => {
         db.collection(collectionName).findOneAndDelete({ _id: ObjectId(req.body.postObjectID)}, (err, result) => {
           if (err) return res.send(500, err)
           res.send('Message deleted!')
