@@ -46,6 +46,7 @@ const collectionName = 'orders'
       db.collection(collectionName).find().toArray((err, result) => {
         if (err) return console.log(err)
         console.log('result', result)
+        console.log('req.user', req)
 
         //update find to filter out/
         // let myWorkLogs = result.filter(doc => doc.name === req.user.local.email)

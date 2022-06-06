@@ -1,0 +1,12 @@
+/* .jumbotron{
+    background-image: url(img/BeigeCoffee.png);
+    background-position: center;
+    background-size: cover;
+} */
+
+body{
+    background-color: #f0e2d7;
+}
+.jumbotron{
+    background-color: #f0e2d7;
+}
